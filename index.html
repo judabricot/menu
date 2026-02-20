@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu — Sidebar</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+html { scroll-behavior: smooth; }
+
+/* ================= MOBILE : bouton ================= */
+#mobile-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1050;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 12px;
+}
+
+/* ================= LAYOUT DESKTOP ================= */
+@media (min-width: 768px) {
+  #page-wrapper {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  /* --- Sidebar --- */
+  #sidebar {
+    position: sticky;
+    top: 0;
+    width: 220px;
+    min-width: 220px;
+    height: 100vh;
+    overflow-y: auto;
+    border-right: 1px solid #eee;
+    padding: 30px 0;
+    background: #fff;
+  }
+
+  #sidebar-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: #aaa;
+    padding: 0 24px 12px;
+  }
+
+  #sidebar nav a {
+    display: block;
+    padding: 10px 24px;
+    text-decoration: none;
+    color: #555;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+  }
+
+  #sidebar nav a:hover {
+    color: #111;
+    background: #f9f9f9;
+  }
+
+  #sidebar nav a.active {
+    color: #111;
+    font-weight: 700;
+    border-left-color: #111;
+    background: #f4f4f4;
+  }
+
+  /* --- Contenu --- */
+  #content {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+/* ================= BARRE CONTEXTUELLE (mobile seulement) ================= */
+#sticky-context {
+  position: sticky;
+  top: 57px;
+  z-index: 1040;
+  background: #f8f8f8;
+  border-bottom: 1px solid #e0e0e0;
+  min-height: 36px;
+  display: none;
+  align-items: center;
+  padding: 6px 16px;
+  gap: 8px;
+  font-size: 0.875rem;
+}
+#sticky-context.visible { display: flex; }
+#ctx-section { font-weight: 700; color: #111; }
+#ctx-separator { color: #aaa; display: none; }
+#ctx-sub { font-weight: 500; color: #555; display: none; }
+#sticky-context.has-sub #ctx-separator,
+#sticky-context.has-sub #ctx-sub { display: inline; }
+
+/* Sur desktop on cache le fil d'Ariane (la sidebar remplace) */
+@media (min-width: 768px) {
+  #sticky-context { display: none !important; }
+}
+
+/* ================= SECTIONS MENU ================= */
+.menu-section {
+  padding: 50px 40px;
+  scroll-margin-top: 20px;
+}
+
+@media (max-width: 767px) {
+  .menu-section {
+    padding: 40px 16px;
+    scroll-margin-top: 100px;
+  }
+}
+
+.menu-subcategory-block { scroll-margin-top: 80px; }
+
+.menu-subcategory-title {
+  font-weight: 600;
+  padding: 5px 0;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.menu-item {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+.menu-item .price { font-weight: 600; }
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+@media (min-width: 768px) {
+  .menu-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ================= PRIX INLINE ================= */
+.price-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 6px;
+}
+.price-inline-item { font-size: 0.82rem; }
+.price-inline-item .qty { color: #999; }
+.price-inline-item .sep { color: #ccc; margin: 0 3px; }
+.price-inline-item .amt { font-weight: 700; color: #111; }
+</style>
+</head>
+<body>
+
+<!-- Mobile nav -->
+<div id="mobile-nav" class="d-md-none">
+  <button class="btn btn-dark w-100" data-bs-toggle="modal" data-bs-target="#categoriesModal">
+    Voir les catégories
+  </button>
+</div>
+
+<!-- Fil d'Ariane mobile -->
+<div id="sticky-context" class="d-md-none">
+  <span id="ctx-section"></span>
+  <span id="ctx-separator">›</span>
+  <span id="ctx-sub"></span>
+</div>
+
+<!-- Layout principal -->
+<div id="page-wrapper">
+
+  <!-- ===== SIDEBAR DESKTOP ===== -->
+  <div id="sidebar" class="d-none d-md-block">
+    <div id="sidebar-title">Carte</div>
+    <nav>
+      <a href="#whiskey">Scotch &amp; Whiskey</a>
+      <a href="#cocktails">Cocktails</a>
+      <a href="#cocktails-sans-alcool">Cocktails sans alcool</a>
+      <a href="#longdrinks">Longdrinks</a>
+      <a href="#shooters">Shooters</a>
+      <a href="#vin">Vins</a>
+      <a href="#champagne">Champagne &amp; Bulles</a>
+      <a href="#biere">Bières pression</a>
+      <a href="#biere-bouteille">Bières bouteille</a>
+      <a href="#soft">Softs &amp; Jus</a>
+      <a href="#hot">Boissons chaudes</a>
+      <a href="#food">Food</a>
+    </nav>
+  </div>
+
+  <!-- ===== CONTENU ===== -->
+  <div id="content">
+
+    <div id="whiskey" class="menu-section" data-section="Scotch &amp; Whiskey">
+      <h3 class="mb-4">Scotch &amp; Whiskey</h3>
+      <div class="menu-subcategory-block" data-sub="Bourbons">
+        <h5 class="menu-subcategory-title">Bourbons</h5>
+        <div class="menu-grid">
+          <div class="menu-item d-flex justify-content-between">
+            <div><h6>Four Roses</h6><small class="text-muted">200 ml</small><p class="small mb-0">Riche et fruité</p></div>
+            <div class="price">40€</div>
+          </div>
+          <div class="menu-item d-flex justify-content-between">
+            <div><h6>Jack Daniels</h6><small class="text-muted">200 ml</small><p class="small mb-0">Classique et doux</p></div>
+            <div class="price">45€</div>
+          </div>
+        </div>
+      </div>
+      <div class="menu-subcategory-block" data-sub="Scotch">
+        <h5 class="menu-subcategory-title">Scotch</h5>
+        <div class="menu-grid">
+          <div class="menu-item d-flex justify-content-between">
+            <div><h6>Chivas Regal</h6><small class="text-muted">200 ml</small><p class="small mb-0">Raffiné et équilibré</p></div>
+            <div class="price">50€</div>
+          </div>
+          <div class="menu-item d-flex justify-content-between">
+            <div><h6>Ballantine's</h6><small class="text-muted">200 ml</small><p class="small mb-0">Lisse et aromatique</p></div>
+            <div class="price">40€</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="cocktails" class="menu-section bg-light" data-section="Cocktails">
+      <h3 class="mb-4">Cocktails</h3>
+      <div class="menu-grid">
+        <div class="menu-item d-flex justify-content-between">
+          <div><h6>Mojito</h6><small class="text-muted">Classique</small><p class="small mb-0">Rhum, menthe, citron vert</p></div>
+          <div class="price">15€</div>
+        </div>
+        <div class="menu-item d-flex justify-content-between">
+          <div><h6>Negroni</h6><small class="text-muted">Classique</small><p class="small mb-0">Gin, Campari, Vermouth</p></div>
+          <div class="price">14€</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="cocktails-sans-alcool" class="menu-section" data-section="Cocktails sans alcool">
+      <h3 class="mb-4">Cocktails sans alcool</h3>
+      <div class="menu-grid">
+        <div class="menu-item d-flex justify-content-between">
+          <div><h6>Virgin Mojito</h6><p class="small mb-0">Menthe, citron, soda</p></div>
+          <div class="price">9€</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="longdrinks" class="menu-section bg-light" data-section="Longdrinks">
+      <h3 class="mb-4">Longdrinks</h3>
+      <div class="menu-grid">
+        <div class="menu-item d-flex justify-content-between">
+          <div><h6>Gin Tonic</h6><p class="small mb-0">Gin, Schweppes, citron</p></div>
+          <div class="price">12€</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="shooters" class="menu-section" data-section="Shooters">
+      <h3 class="mb-4">Shooters</h3>
+      <div class="menu-grid">
+        <div class="menu-item d-flex justify-content-between">
+          <div><h6>B52</h6><p class="small mb-0">Kahlúa, Baileys, Grand Marnier</p></div>
+          <div class="price">6€</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="vin" class="menu-section bg-light" data-section="Vins">
+      <h3 class="mb-4">Vins</h3>
+      <div class="menu-subcategory-block" data-sub="Rouge">
+        <h5 class="menu-subcategory-title">Rouge</h5>
+        <div class="menu-grid">
+          <div class="menu-item">
+            <h6>Château X</h6>
+            <div class="price-inline">
+              <span class="price-inline-item"><span class="qty">Verre</span><span class="sep">·</span><span class="amt">5 €</span></span>
+              <span class="price-inline-item"><span class="qty">Bouteille</span><span class="sep">·</span><span class="amt">25 €</span></span>
+            </div>
+          </div>
+          <div class="menu-item">
+            <h6>Château Y</h6>
+            <div class="price-inline">
+              <span class="price-inline-item"><span class="qty">Verre</span><span class="sep">·</span><span class="amt">6 €</span></span>
+              <span class="price-inline-item"><span class="qty">Bouteille</span><span class="sep">·</span><span class="amt">30 €</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="champagne" class="menu-section" data-section="Champagne &amp; Bulles">
+      <h3 class="mb-4">Champagne &amp; Bulles</h3>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <h6>Moët &amp; Chandon</h6>
+          <div class="price-inline">
+            <span class="price-inline-item"><span class="qty">Coupe</span><span class="sep">·</span><span class="amt">18 €</span></span>
+            <span class="price-inline-item"><span class="qty">Bouteille</span><span class="sep">·</span><span class="amt">95 €</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="biere" class="menu-section bg-light" data-section="Bières pression">
+      <h3 class="mb-4">Bières pression</h3>
+      <div class="menu-subcategory-block" data-sub="Blondes">
+        <h5 class="menu-subcategory-title">Blondes</h5>
+        <div class="menu-grid">
+          <div class="menu-item">
+            <h6>Leffe Blonde</h6>
+            <div class="price-inline">
+              <span class="price-inline-item"><span class="qty">25 cl</span><span class="sep">·</span><span class="amt">4 €</span></span>
+              <span class="price-inline-item"><span class="qty">33 cl</span><span class="sep">·</span><span class="amt">5 €</span></span>
+              <span class="price-inline-item"><span class="qty">50 cl</span><span class="sep">·</span><span class="amt">7 €</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="biere-bouteille" class="menu-section" data-section="Bières bouteille">
+      <h3 class="mb-4">Bières bouteille</h3>
+      <div class="menu-grid">
+        <div class="menu-item d-flex justify-content-between">
+          <div><h6>Corona</h6><small class="text-muted">33 cl</small></div>
+          <div class="price">5€</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="soft" class="menu-section bg-light" data-section="Softs &amp; Jus">
+      <h3 class="mb-4">Softs &amp; Jus</h3>
+      <div class="menu-grid">
+        <div class="menu-item d-flex justify-content-between">
+          <div><h6>Coca-Cola</h6><small class="text-muted">33 cl</small></div>
+          <div class="price">4€</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="hot" class="menu-section" data-section="Boissons chaudes">
+      <h3 class="mb-4">Boissons chaudes</h3>
+      <div class="menu-grid">
+        <div class="menu-item d-flex justify-content-between">
+          <div><h6>Café expresso</h6></div>
+          <div class="price">3€</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="food" class="menu-section bg-light" data-section="Food">
+      <h3 class="mb-4">Food</h3>
+      <p class="text-muted">À venir…</p>
+    </div>
+
+  </div><!-- /#content -->
+</div><!-- /#page-wrapper -->
+
+<!-- Modal mobile -->
+<div class="modal fade" id="categoriesModal" tabindex="-1">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Catégories</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="list-group">
+          <a href="#whiskey" class="list-group-item list-group-item-action category-link">Scotch &amp; Whiskey</a>
+          <a href="#cocktails" class="list-group-item list-group-item-action category-link">Cocktails</a>
+          <a href="#cocktails-sans-alcool" class="list-group-item list-group-item-action category-link">Cocktails sans alcool</a>
+          <a href="#longdrinks" class="list-group-item list-group-item-action category-link">Longdrinks</a>
+          <a href="#shooters" class="list-group-item list-group-item-action category-link">Shooters</a>
+          <a href="#vin" class="list-group-item list-group-item-action category-link">Vins</a>
+          <a href="#champagne" class="list-group-item list-group-item-action category-link">Champagne &amp; Bulles</a>
+          <a href="#biere" class="list-group-item list-group-item-action category-link">Bières pression</a>
+          <a href="#biere-bouteille" class="list-group-item list-group-item-action category-link">Bières bouteille</a>
+          <a href="#soft" class="list-group-item list-group-item-action category-link">Softs &amp; Jus</a>
+          <a href="#hot" class="list-group-item list-group-item-action category-link">Boissons chaudes</a>
+          <a href="#food" class="list-group-item list-group-item-action category-link">Food</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// ── Modal mobile ─────────────────────────────────────────────────────────────
+let pendingScrollTarget = null;
+
+document.querySelectorAll('.category-link').forEach(link => {
+  link.addEventListener('click', function (e) {
+    e.preventDefault();
+    pendingScrollTarget = document.querySelector(this.getAttribute('href'));
+    const modalEl = document.getElementById('categoriesModal');
+    const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+    modal.hide();
+  });
+});
+
+document.getElementById('categoriesModal').addEventListener('hidden.bs.modal', function () {
+  if (pendingScrollTarget) {
+    setTimeout(() => {
+      pendingScrollTarget.scrollIntoView({ behavior: 'smooth' });
+      pendingScrollTarget = null;
+    }, 50);
+  }
+});
+
+// ── Fil d'Ariane + sidebar active ────────────────────────────────────────────
+const ctxBar     = document.getElementById('sticky-context');
+const ctxSection = document.getElementById('ctx-section');
+const ctxSub     = document.getElementById('ctx-sub');
+const sections   = Array.from(document.querySelectorAll('.menu-section'));
+const subBlocks  = Array.from(document.querySelectorAll('.menu-subcategory-block'));
+const sidebarLinks = Array.from(document.querySelectorAll('#sidebar nav a'));
+
+function getNavHeight() {
+  const mobileNav = document.getElementById('mobile-nav');
+  const isMobile = window.innerWidth < 768;
+  if (isMobile) {
+    const ctx = ctxBar.classList.contains('visible') ? ctxBar.offsetHeight : 0;
+    return mobileNav.offsetHeight + ctx + 8;
+  }
+  return 20; // offset minimal desktop (pas de barre sticky en haut)
+}
+
+function getActiveSection() {
+  const offset = getNavHeight();
+  let active = null;
+  for (const sec of sections) {
+    if (sec.getBoundingClientRect().top <= offset) active = sec;
+  }
+  return active;
+}
+
+function update() {
+  const activeSection = getActiveSection();
+
+  // Sidebar desktop : lien actif
+  sidebarLinks.forEach(a => a.classList.remove('active'));
+  if (activeSection) {
+    const link = document.querySelector(`#sidebar nav a[href="#${activeSection.id}"]`);
+    if (link) link.classList.add('active');
+  }
+
+  // Fil d'Ariane mobile
+  if (!activeSection) {
+    ctxBar.classList.remove('visible', 'has-sub');
+    return;
+  }
+  ctxSection.textContent = activeSection.dataset.section;
+  ctxBar.classList.add('visible');
+
+  const offset = getNavHeight();
+  let activeSub = null;
+  for (const sub of subBlocks) {
+    if (!activeSection.contains(sub)) continue;
+    if (sub.getBoundingClientRect().top <= offset) activeSub = sub;
+  }
+  if (activeSub) {
+    ctxSub.textContent = activeSub.dataset.sub;
+    ctxBar.classList.add('has-sub');
+  } else {
+    ctxBar.classList.remove('has-sub');
+  }
+}
+
+let ticking = false;
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(() => { update(); ticking = false; });
+    ticking = true;
+  }
+}, { passive: true });
+
+update();
+</script>
+</body>
+</html>
