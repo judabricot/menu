@@ -4,20 +4,75 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Menu — Sidebar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
-html { scroll-behavior: smooth; }
+
+@font-face {
+    font-family: 'jgfont';
+    src: url('jgfont.woff2') format('woff2'),
+         url('jgfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html { scroll-behavior: smooth; 
+}
+
+h3, h5 {
+  font-family: 'jgfont';
+  font-weight: 400;
+}
+
+h3 {
+  font-size: 40px;
+  color: rgb(10, 79, 10);
+  line-height: 0.8;
+}
+
+h6 {
+  margin-bottom: 3px;
+  font-weight: 600;
+}
+
+body {
+  background-image: url(home-2-background-3.jpg);
+    background-repeat: repeat;
+    background-position: 0 0;
+    font-family: "Montserrat", sans-serif;
+
+}
 
 /* ================= MOBILE : bouton ================= */
 #mobile-nav {
   position: sticky;
   top: 0;
   z-index: 1050;
-  background: #fff;
   border-bottom: 1px solid #ddd;
   padding: 12px;
+  background-color: black;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
+
+.modal-fullscreen .modal-content  {
+  background-color: black!important;
+  color: white;
+}
+
+.list-group-item {
+    border: 0;
+    background: none;
+    font-size: 18px;
+    font-weight: 500;
+}
+
 
 /* ================= LAYOUT DESKTOP ================= */
 @media (min-width: 768px) {
@@ -28,6 +83,10 @@ html { scroll-behavior: smooth; }
 
   /* --- Sidebar --- */
   #sidebar {
+    /* background-image: url(home-2-background-3.jpg);
+    background-repeat: repeat;
+    background-position: 0 0; */
+    background-color: #000;
     position: sticky;
     top: 0;
     width: 220px;
@@ -36,7 +95,11 @@ html { scroll-behavior: smooth; }
     overflow-y: auto;
     border-right: 1px solid #eee;
     padding: 30px 0;
-    background: #fff;
+  }
+
+  #sidebar nav a {
+    font-family: 'jgfont';
+    font-size: 20px;
   }
 
   #sidebar-title {
@@ -52,8 +115,8 @@ html { scroll-behavior: smooth; }
     display: block;
     padding: 10px 24px;
     text-decoration: none;
-    color: #555;
-    font-size: 0.9rem;
+    color: #ffffff;
+    font-size: 20px;
     font-weight: 500;
     border-left: 3px solid transparent;
     transition: all 0.15s;
@@ -65,10 +128,10 @@ html { scroll-behavior: smooth; }
   }
 
   #sidebar nav a.active {
-    color: #111;
-    font-weight: 700;
+    color: #ffffff;
+    font-weight: 400;
     border-left-color: #111;
-    background: #f4f4f4;
+    background-color: #ffffff33;
   }
 
   /* --- Contenu --- */
@@ -76,12 +139,16 @@ html { scroll-behavior: smooth; }
     flex: 1;
     min-width: 0;
   }
+
+  #content > div {
+    max-width: 800px;
+  }
 }
 
 /* ================= BARRE CONTEXTUELLE (mobile seulement) ================= */
 #sticky-context {
   position: sticky;
-  top: 57px;
+  top: 68px;
   z-index: 1040;
   background: #f8f8f8;
   border-bottom: 1px solid #e0e0e0;
@@ -99,6 +166,12 @@ html { scroll-behavior: smooth; }
 #sticky-context.has-sub #ctx-separator,
 #sticky-context.has-sub #ctx-sub { display: inline; }
 
+.logomobile {
+  max-width: 110px;
+  height: auto;
+  width: 100%;
+}
+
 /* Sur desktop on cache le fil d'Ariane (la sidebar remplace) */
 @media (min-width: 768px) {
   #sticky-context { display: none !important; }
@@ -110,48 +183,57 @@ html { scroll-behavior: smooth; }
   scroll-margin-top: 20px;
 }
 
+.menu-section.bg-light {
+  background-color: #00000007!important;
+}
+
 @media (max-width: 767px) {
   .menu-section {
-    padding: 40px 16px;
+    padding: 40px 30px;
     scroll-margin-top: 100px;
   }
 }
 
 .menu-subcategory-block { scroll-margin-top: 80px; }
 
+
+.menu-subcategory-block {
+  margin-top: 20px;
+}
+
 .menu-subcategory-title {
-  font-weight: 600;
-  padding: 5px 0;
+  font-weight: 400;
+  font-size: 30px;
   margin-bottom: 15px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #000000;
 }
 
 .menu-item {
-  border-bottom: 1px solid #eee;
-  padding-bottom: 15px;
-  margin-bottom: 20px;
 }
 .menu-item .price { font-weight: 600; }
 
 .menu-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: 10px;
 }
 @media (min-width: 768px) {
-  .menu-grid { grid-template-columns: 1fr 1fr; }
+  .menu-grid { 
+    grid-template-columns: 1fr 1fr;
+     gap: 30px;
+  }
 }
 
 /* ================= PRIX INLINE ================= */
 .price-inline {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 12px;
-  margin-top: 6px;
+  gap: 4px 18px;
+  margin-top: 3px;
 }
 .price-inline-item { font-size: 0.82rem; }
-.price-inline-item .qty { color: #999; }
-.price-inline-item .sep { color: #ccc; margin: 0 3px; }
+.price-inline-item .qty { color: #444; }
+.price-inline-item .sep { color: #444; margin: 0 3px; }
 .price-inline-item .amt { font-weight: 700; color: #111; }
 </style>
 </head>
@@ -159,8 +241,11 @@ html { scroll-behavior: smooth; }
 
 <!-- Mobile nav -->
 <div id="mobile-nav" class="d-md-none">
-  <button class="btn btn-dark w-100" data-bs-toggle="modal" data-bs-target="#categoriesModal">
-    Voir les catégories
+  <a href="">
+    <img src="logo.jpg" class="logomobile" alt="">
+  </a>
+  <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#categoriesModal">
+    Menu
   </button>
 </div>
 
@@ -176,7 +261,7 @@ html { scroll-behavior: smooth; }
 
   <!-- ===== SIDEBAR DESKTOP ===== -->
   <div id="sidebar" class="d-none d-md-block">
-    <div id="sidebar-title">Carte</div>
+    <div id="sidebar-title"><img src="logo.jpg" class="logomobile mb-4" alt=""></div>
     <nav>
       <a href="#whiskey">Scotch &amp; Whiskey</a>
       <a href="#cocktails">Cocktails</a>
@@ -197,16 +282,16 @@ html { scroll-behavior: smooth; }
   <div id="content">
 
     <div id="whiskey" class="menu-section" data-section="Scotch &amp; Whiskey">
-      <h3 class="mb-4">Scotch &amp; Whiskey</h3>
+      <h3 class="mb-2">Scotch &amp; Whiskey</h3>
       <div class="menu-subcategory-block" data-sub="Bourbons">
         <h5 class="menu-subcategory-title">Bourbons</h5>
         <div class="menu-grid">
           <div class="menu-item d-flex justify-content-between">
-            <div><h6>Four Roses</h6><small class="text-muted">200 ml</small><p class="small mb-0">Riche et fruité</p></div>
+            <div><h6>Four Roses</h6><small class="text-muted">200 ml</small></div>
             <div class="price">40€</div>
           </div>
           <div class="menu-item d-flex justify-content-between">
-            <div><h6>Jack Daniels</h6><small class="text-muted">200 ml</small><p class="small mb-0">Classique et doux</p></div>
+            <div><h6>Jack Daniels</h6><small class="text-muted">200 ml</small></div>
             <div class="price">45€</div>
           </div>
         </div>
@@ -215,11 +300,11 @@ html { scroll-behavior: smooth; }
         <h5 class="menu-subcategory-title">Scotch</h5>
         <div class="menu-grid">
           <div class="menu-item d-flex justify-content-between">
-            <div><h6>Chivas Regal</h6><small class="text-muted">200 ml</small><p class="small mb-0">Raffiné et équilibré</p></div>
+            <div><h6>Chivas Regal</h6><small class="text-muted">200 ml</small></div>
             <div class="price">50€</div>
           </div>
           <div class="menu-item d-flex justify-content-between">
-            <div><h6>Ballantine's</h6><small class="text-muted">200 ml</small><p class="small mb-0">Lisse et aromatique</p></div>
+            <div><h6>Ballantine's</h6><small class="text-muted">200 ml</small></div>
             <div class="price">40€</div>
           </div>
         </div>
@@ -227,7 +312,7 @@ html { scroll-behavior: smooth; }
     </div>
 
     <div id="cocktails" class="menu-section bg-light" data-section="Cocktails">
-      <h3 class="mb-4">Cocktails</h3>
+      <h3 class="mb-2">Cocktails</h3>
       <div class="menu-grid">
         <div class="menu-item d-flex justify-content-between">
           <div><h6>Mojito</h6><small class="text-muted">Classique</small><p class="small mb-0">Rhum, menthe, citron vert</p></div>
@@ -241,7 +326,7 @@ html { scroll-behavior: smooth; }
     </div>
 
     <div id="cocktails-sans-alcool" class="menu-section" data-section="Cocktails sans alcool">
-      <h3 class="mb-4">Cocktails sans alcool</h3>
+      <h3 class="mb-2">Cocktails sans alcool</h3>
       <div class="menu-grid">
         <div class="menu-item d-flex justify-content-between">
           <div><h6>Virgin Mojito</h6><p class="small mb-0">Menthe, citron, soda</p></div>
@@ -251,7 +336,7 @@ html { scroll-behavior: smooth; }
     </div>
 
     <div id="longdrinks" class="menu-section bg-light" data-section="Longdrinks">
-      <h3 class="mb-4">Longdrinks</h3>
+      <h3 class="mb-2">Longdrinks</h3>
       <div class="menu-grid">
         <div class="menu-item d-flex justify-content-between">
           <div><h6>Gin Tonic</h6><p class="small mb-0">Gin, Schweppes, citron</p></div>
@@ -261,7 +346,7 @@ html { scroll-behavior: smooth; }
     </div>
 
     <div id="shooters" class="menu-section" data-section="Shooters">
-      <h3 class="mb-4">Shooters</h3>
+      <h3 class="mb-2">Shooters</h3>
       <div class="menu-grid">
         <div class="menu-item d-flex justify-content-between">
           <div><h6>B52</h6><p class="small mb-0">Kahlúa, Baileys, Grand Marnier</p></div>
@@ -271,22 +356,22 @@ html { scroll-behavior: smooth; }
     </div>
 
     <div id="vin" class="menu-section bg-light" data-section="Vins">
-      <h3 class="mb-4">Vins</h3>
+      <h3 class="mb-2">Vins</h3>
       <div class="menu-subcategory-block" data-sub="Rouge">
         <h5 class="menu-subcategory-title">Rouge</h5>
         <div class="menu-grid">
           <div class="menu-item">
             <h6>Château X</h6>
             <div class="price-inline">
-              <span class="price-inline-item"><span class="qty">Verre</span><span class="sep">·</span><span class="amt">5 €</span></span>
-              <span class="price-inline-item"><span class="qty">Bouteille</span><span class="sep">·</span><span class="amt">25 €</span></span>
+              <span class="price-inline-item"><span class="qty">Verre</span><span class="sep">:</span><span class="amt">5 €</span></span>
+              <span class="price-inline-item"><span class="qty">Bouteille</span><span class="sep">:</span><span class="amt">25 €</span></span>
             </div>
           </div>
           <div class="menu-item">
             <h6>Château Y</h6>
             <div class="price-inline">
-              <span class="price-inline-item"><span class="qty">Verre</span><span class="sep">·</span><span class="amt">6 €</span></span>
-              <span class="price-inline-item"><span class="qty">Bouteille</span><span class="sep">·</span><span class="amt">30 €</span></span>
+              <span class="price-inline-item"><span class="qty">Verre</span><span class="sep">:</span><span class="amt">6 €</span></span>
+              <span class="price-inline-item"><span class="qty">Bouteille</span><span class="sep">:</span><span class="amt">30 €</span></span>
             </div>
           </div>
         </div>
@@ -294,29 +379,47 @@ html { scroll-behavior: smooth; }
     </div>
 
     <div id="champagne" class="menu-section" data-section="Champagne &amp; Bulles">
-      <h3 class="mb-4">Champagne &amp; Bulles</h3>
+      <h3 class="mb-2">Champagne &amp; Bulles</h3>
       <div class="menu-grid">
         <div class="menu-item">
           <h6>Moët &amp; Chandon</h6>
           <div class="price-inline">
-            <span class="price-inline-item"><span class="qty">Coupe</span><span class="sep">·</span><span class="amt">18 €</span></span>
-            <span class="price-inline-item"><span class="qty">Bouteille</span><span class="sep">·</span><span class="amt">95 €</span></span>
+            <span class="price-inline-item"><span class="qty">Coupe</span><span class="sep">:</span><span class="amt">18 €</span></span>
+            <span class="price-inline-item"><span class="qty">Bouteille</span><span class="sep">:</span><span class="amt">95 €</span></span>
           </div>
         </div>
       </div>
     </div>
 
     <div id="biere" class="menu-section bg-light" data-section="Bières pression">
-      <h3 class="mb-4">Bières pression</h3>
+      <h3 class="mb-2">Bières pression</h3>
       <div class="menu-subcategory-block" data-sub="Blondes">
         <h5 class="menu-subcategory-title">Blondes</h5>
         <div class="menu-grid">
           <div class="menu-item">
             <h6>Leffe Blonde</h6>
             <div class="price-inline">
-              <span class="price-inline-item"><span class="qty">25 cl</span><span class="sep">·</span><span class="amt">4 €</span></span>
-              <span class="price-inline-item"><span class="qty">33 cl</span><span class="sep">·</span><span class="amt">5 €</span></span>
-              <span class="price-inline-item"><span class="qty">50 cl</span><span class="sep">·</span><span class="amt">7 €</span></span>
+              <span class="price-inline-item"><span class="qty">25 cl</span><span class="sep">:</span><span class="amt">4 €</span></span>
+              <span class="price-inline-item"><span class="qty">33 cl</span><span class="sep">:</span><span class="amt">5 €</span></span>
+              <span class="price-inline-item"><span class="qty">50 cl</span><span class="sep">:</span><span class="amt">7 €</span></span>
+            </div>
+          </div>
+
+          <div class="menu-item">
+            <h6>Leffe Brune</h6>
+            <div class="price-inline">
+              <span class="price-inline-item"><span class="qty">25 cl</span><span class="sep">:</span><span class="amt">4 €</span></span>
+              <span class="price-inline-item"><span class="qty">33 cl</span><span class="sep">:</span><span class="amt">5 €</span></span>
+              <span class="price-inline-item"><span class="qty">50 cl</span><span class="sep">:</span><span class="amt">7 €</span></span>
+            </div>
+          </div>
+
+          <div class="menu-item">
+            <h6>Chimay</h6>
+            <div class="price-inline">
+              <span class="price-inline-item"><span class="qty">25 cl</span><span class="sep">:</span><span class="amt">4 €</span></span>
+              <span class="price-inline-item"><span class="qty">33 cl</span><span class="sep">:</span><span class="amt">5 €</span></span>
+              <span class="price-inline-item"><span class="qty">50 cl</span><span class="sep">:</span><span class="amt">7 €</span></span>
             </div>
           </div>
         </div>
@@ -324,7 +427,7 @@ html { scroll-behavior: smooth; }
     </div>
 
     <div id="biere-bouteille" class="menu-section" data-section="Bières bouteille">
-      <h3 class="mb-4">Bières bouteille</h3>
+      <h3 class="mb-2">Bières bouteille</h3>
       <div class="menu-grid">
         <div class="menu-item d-flex justify-content-between">
           <div><h6>Corona</h6><small class="text-muted">33 cl</small></div>
@@ -334,7 +437,7 @@ html { scroll-behavior: smooth; }
     </div>
 
     <div id="soft" class="menu-section bg-light" data-section="Softs &amp; Jus">
-      <h3 class="mb-4">Softs &amp; Jus</h3>
+      <h3 class="mb-2">Softs &amp; Jus</h3>
       <div class="menu-grid">
         <div class="menu-item d-flex justify-content-between">
           <div><h6>Coca-Cola</h6><small class="text-muted">33 cl</small></div>
@@ -344,7 +447,7 @@ html { scroll-behavior: smooth; }
     </div>
 
     <div id="hot" class="menu-section" data-section="Boissons chaudes">
-      <h3 class="mb-4">Boissons chaudes</h3>
+      <h3 class="mb-2">Boissons chaudes</h3>
       <div class="menu-grid">
         <div class="menu-item d-flex justify-content-between">
           <div><h6>Café expresso</h6></div>
@@ -354,7 +457,7 @@ html { scroll-behavior: smooth; }
     </div>
 
     <div id="food" class="menu-section bg-light" data-section="Food">
-      <h3 class="mb-4">Food</h3>
+      <h3 class="mb-2">Food</h3>
       <p class="text-muted">À venir…</p>
     </div>
 
@@ -362,11 +465,11 @@ html { scroll-behavior: smooth; }
 </div><!-- /#page-wrapper -->
 
 <!-- Modal mobile -->
-<div class="modal fade" id="categoriesModal" tabindex="-1">
+<div class="modal fade" id="categoriesModal" tabindex="-1" data-bs-theme="dark">
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Catégories</h5>
+        <h5 class="modal-title"><img src="logo.jpg" class="logomobile" alt=""></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
